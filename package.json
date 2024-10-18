@@ -1,0 +1,29 @@
+{
+  "name": "project-akhir-pemrograman-web",
+  "version": "1.0.0",
+  "description": "data pengunjung ruang baca",
+  "main": "server.js",
+  "scripts": {
+    "api": "node server.js",
+    "test": "express"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Afiefanugrah/Project-Akhir-Pemrograman-Web.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "kelompok",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Afiefanugrah/Project-Akhir-Pemrograman-Web/issues"
+  },
+  "homepage": "https://github.com/Afiefanugrah/Project-Akhir-Pemrograman-Web#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

@@ -16,4 +16,8 @@ app.get('/nopal', (req, res) => {
   res.send('Pal Khun')
 })
 
+app.get('/marcel', (req, res) => {
+  res.send('Marcel Hadir')
+})
+
 app.listen(port, () => {console.log(`server running to port ${port}`)})

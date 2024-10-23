@@ -20,4 +20,8 @@ app.get('/marcel', (req, res) => {
   res.send('Marcel Hadir')
 })
 
+app.get('/putri', (req, res) => {
+  res.send('Putri here')
+})
+
 app.listen(port, () => {console.log(`server running to port ${port}`)})

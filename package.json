@@ -4,8 +4,7 @@
   "description": "data pengunjung ruang baca",
   "main": "server.js",
   "scripts": {
-    "api": "node server.js",
-    "test": "express"
+    "api": "nodemon server.js"
   },
   "repository": {
     "type": "git",

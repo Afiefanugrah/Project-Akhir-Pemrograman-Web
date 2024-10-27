@@ -53,13 +53,13 @@ router.post('/login', async (req, res) => {
       req.session.activity_code = '001';
       req.session.activity_time = new Date();
 
-      await sessionModel.create({
-        admin_id: adminData.id,               // Simpan admin_id
-        cookie_id: req.sessionID,              // Simpan session ID
-        activity_code: '001',                // Simpan kode aktivitas
-        activity_time: new Date(),             // Simpan waktu aktivitas
-        created_at: new Date(),                // Simpan waktu dibuat
-        updated_at: new Date()                 // Simpan waktu diperbarui
+      await sessionModel.upsert({
+        admin_id: adminData.id,
+        cookie_id: req.sessionID,
+        activity_code: '001',
+        activity_time: new Date(),
+        created_at: new Date(),
+        updated_at: new Date()
       });
 
       res.json({

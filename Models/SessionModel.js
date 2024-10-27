@@ -5,19 +5,7 @@ const Session = sequelize.define('Session', {
   admin_id: {
     type: DataTypes.INTEGER,
     allowNull: true, // Session bisa tanpa admin
-    references: {
-      model: 'admins', // Sesuaikan dengan nama tabel Admin
-      key: 'id'
-    }
   },
-  // pengunjung_id: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: true, // Session bisa tanpa pengunjung
-  //   references: {
-  //     model: 'pengunjungs', // Sesuaikan dengan nama tabel Pengunjung
-  //     key: 'id'
-  //   }
-  // },
   cookie_id: {
     type: DataTypes.STRING,
     allowNull: false,

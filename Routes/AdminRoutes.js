@@ -45,38 +45,75 @@ router.post('/login', async (req, res) => {
     if (!adminData) {
       return res.json({ error: 'Invalid username or password' });
     }
+
     const compare = await bcrypt.compare(password, adminData.password);
 
     if (compare) {
+      // Periksa apakah sudah ada sesi untuk admin_id yang sama
+      const existingSession = await sessionModel.findOne({ where: { admin_id: adminData.id } });
+
+      if (existingSession) {
+        // Jika ada sesi yang sudah ada, perbarui sesi tersebut
+        await sessionModel.update({
+          cookie_id: req.sessionID,
+          activity_code: '001',
+          activity_time: new Date(),
+          updated_at: new Date()
+        }, {
+          where: { admin_id: adminData.id }
+        });
+      } else {
+        // Jika tidak ada sesi, buat sesi baru
+        await sessionModel.create({
+          admin_id: adminData.id,
+          cookie_id: req.sessionID,
+          activity_code: '001',
+          activity_time: new Date(),
+          created_at: new Date(),
+          updated_at: new Date()
+        });
+      }
+      // Simpan informasi sesi di req.session
       req.session.admin_id = adminData.id;
       req.session.cookie_id = req.sessionID;
       req.session.activity_code = '001';
       req.session.activity_time = new Date();
 
-      await sessionModel.upsert({
-        admin_id: adminData.id,
-        cookie_id: req.sessionID,
-        activity_code: '001',
-        activity_time: new Date(),
-        created_at: new Date(),
-        updated_at: new Date()
-      });
-
       res.json({
         data: adminData,
-        metadata: 'Login successful, session created'
+        metadata: 'Login successful, session created or updated'
       });
     } else {
-      res.json({
-        error: 'Invalid username or password'
-      });
+      res.json({ error: 'Invalid username or password' });
     }
   } catch (err) {
-    res.status(500).json({
-      error: 'An error occurred during login'
-    });
+    res.status(500).json({ error: 'An error occurred during login' });
   }
 });
+
+
+router.post('/logout', async (req, res) => {
+  try {
+    // Hapus sesi dari database berdasarkan cookie_id
+    await sessionModel.destroy({ where: { cookie_id: req.sessionID } });
+
+    // Hapus sesi dari sisi server
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error destroying session:', err); // Log error untuk debugging
+        return res.status(500).json({ error: 'Failed to log out, please try again' });
+      }
+
+      // Menghapus cookie sesi dari browser
+      res.clearCookie('connect.sid'); // Ganti 'connect.sid' dengan nama cookie yang digunakan jika berbeda
+      res.json({ message: 'Logout successful, session destroyed' });
+    });
+  } catch (error) {
+    console.error('Error during logout process:', error); // Log error untuk debugging
+    res.status(500).json({ error: 'An error occurred during logout' });
+  }
+});
+
 
 router.get('/check-session', async (req, res) => {
   if (req.session.admin_id) {

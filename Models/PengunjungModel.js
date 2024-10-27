@@ -24,8 +24,8 @@ Pengunjung.init({
   },
   email_umrah: {
     type: DataTypes.STRING,
-    allowNull: false,  // Jika email wajib diisi
-    unique: true      // Jika email harus unik
+    allowNull: false,
+    unique: true
   },
 }, {
   sequelize,

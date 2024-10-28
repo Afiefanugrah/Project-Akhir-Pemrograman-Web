@@ -1,0 +1,25 @@
+*,
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.by-conatiner {
+  min-height: 100vh;
+  width: 100%;
+  background: #16c4c4;
+}
+
+.by-session1 {
+  height: 100vh;
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.by-col {
+  /* border: "1px solid #0000" */
+  background-color: #16c4c4;
+}

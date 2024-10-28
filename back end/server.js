@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 require('dotenv').config()
 const sessionModel = require('./Models/SessionModel')
 const port = process.env.PORT
@@ -12,6 +13,7 @@ const session = require('express-session')
 
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 const loadSessions = async (req) => {
   const sessions = await sessionModel.findAll();

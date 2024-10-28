@@ -45,7 +45,6 @@ router.post('/login', async (req, res) => {
     if (!adminData) {
       return res.json({ error: 'Invalid username or password' });
     }
-
     const compare = await bcrypt.compare(password, adminData.password);
 
     if (compare) {
@@ -138,7 +137,6 @@ router.get('/check-session', async (req, res) => {
   }
 });
 
-// Rute untuk dashboard admin yang dilindungi
 // Rute untuk dashboard admin yang dilindungi
 // router.get('/admin/dashboard', checkAdminSession, async (req, res) => {
 //   res.json({

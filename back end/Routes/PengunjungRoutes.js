@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 router.post('/registers', async (req, res) => {
   try {
     const { nim, nama_lengkap, jenis_kelamin, email_umrah } = req.body
-    if (!nim || !nama_lengkap || jenis_kelamin || !email_umrah) {
+    if (!nim || !nama_lengkap || !jenis_kelamin || !email_umrah) {
       return res.status(400).json({
         error: "NIM, Nama Lengkap, dan Email Umrah wajib diisi"
       });
@@ -37,7 +37,7 @@ router.post('/registers', async (req, res) => {
         error: "Email harus dalam format email@student.umrah.ac.id"
       });
     }
-    const pengunjung = await ({
+    const pengunjung = await pengunjungModel.create({
       nim, nama_lengkap, jenis_kelamin, email_umrah
     })
     res.json({

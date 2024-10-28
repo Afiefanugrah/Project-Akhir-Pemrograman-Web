@@ -1,0 +1,9 @@
+/* NavbarLoginPage.css */
+.navbar-custom {
+  border-bottom: 1px solid black; /* Adjust the thickness and color of the border */
+}
+
+.logo {
+  width: 50px; /* Logo size */
+  height: auto; /* Maintain aspect ratio */
+}

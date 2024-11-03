@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "../../styles/registrasiPengunjung.css"
 
 const RegistrasiPengunjung = () => {
   const [formData, setFormData] = useState({
@@ -55,13 +56,48 @@ const RegistrasiPengunjung = () => {
           <option value="perempuan">Perempuan</option>
         </select>
       </div>
+      {/* <div className="mb-3">
+        <label className="form-label">Jenis Kelamin</label>
+          <div className="d-flex">
+              <div className="form-check me-3">
+                  <input
+                      type="radio"
+                      className="form-check-input"
+                      id="jenis_kelamin_laki"
+                      name="jenis_kelamin"
+                      value="laki-laki"
+                      checked={formData.jenis_kelamin === "laki-laki"}
+                      onChange={handleChange}
+                  />
+                  <label className="form-check-label" htmlFor="jenis_kelamin_laki">
+                      Laki-laki
+                  </label>
+              </div>
+              <div className="form-check">
+                  <input
+                      type="radio"
+                      className="form-check-input"
+                      id="jenis_kelamin_perempuan"
+                      name="jenis_kelamin"
+                      value="perempuan"
+                      checked={formData.jenis_kelamin === "perempuan"}
+                      onChange={handleChange}
+                  />
+                  <label className="form-check-label" htmlFor="jenis_kelamin_perempuan">
+                      Perempuan
+                  </label>
+              </div>
+          </div>
+      </div> */}
+
       <div className="mb-3">
         <label htmlFor="email_umrah" className="form-label">Email UMRAH</label>
         <input type="email" className="form-control" id="email_umrah" placeholder="Masukkan Email UMRAH" value={formData.email_umrah} onChange={handleChange} />
         <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
       </div>
-      <div className="text-center">
+      <div className="d-flex justify-content-between">
         <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">Login</button>
       </div>
     </form>
   );

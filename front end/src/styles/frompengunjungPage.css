@@ -1,0 +1,25 @@
+
+.form-label {
+  text-align: left;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  border: none !important;
+  border-bottom: 2px solid #000 !important;
+  outline: none;
+  padding: 0.5rem 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: none;
+  transition: border-bottom-color 0.3s;
+}
+
+.form-control:focus {
+  border-bottom: 2px solid black;
+}
+
+.text-left {
+  display: flex;
+}

@@ -7,3 +7,10 @@
   width: 50px; /* Logo size */
   height: auto; /* Maintain aspect ratio */
 }
+
+@media (max-width: 576px) {
+  .navbar-custom {
+    display: none !important; /* Memastikan navbar tidak ditampilkan */
+  }
+}
+

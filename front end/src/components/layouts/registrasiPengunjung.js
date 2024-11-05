@@ -1,14 +1,20 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "axios"
+
+import { useNavigate } from 'react-router-dom';
 import "../../styles/registrasiPengunjung.css"
 
 const RegistrasiPengunjung = () => {
+  const apiregister = process.env.REACT_APP_API_UR
+
   const [formData, setFormData] = useState({
     nim: "",
     nama_lengkap: "",
     jenis_kelamin: "",
     email_umrah: ""
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -21,7 +27,7 @@ const RegistrasiPengunjung = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3200/api/pengunjung/registers", formData);
+      const response = await axios.post("http://192.168.1.7:3200/api/pengunjung/registers", formData);
       console.log("Response:", response.data);
       alert("Registrasi berhasil!");
 
@@ -36,6 +42,10 @@ const RegistrasiPengunjung = () => {
       console.error("Error:", error.response?.data || error.message);
       alert("Registrasi gagal: " + (error.response?.data?.error || "Terjadi kesalahan"));
     }
+  };
+
+  const handleLoginClick = () => {
+    navigate('/'); // Navigate to the homepage when Login button is clicked
   };
 
   return (
@@ -97,7 +107,7 @@ const RegistrasiPengunjung = () => {
       </div>
       <div className="d-flex justify-content-between">
         <button type="submit" className="btn btn-primary">Submit</button>
-        <button type="submit" className="btn btn-primary">Login</button>
+        <button type="button" className="btn btn-primary" onClick={handleLoginClick} >Login</button>
       </div>
     </form>
   );

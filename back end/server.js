@@ -9,22 +9,23 @@ sequelize.sync().then(() => console.log("Database Ready!"))
 
 const adminEnpoind = require('./Routes/AdminRoutes')
 const pengunjungEnpoind = require('./Routes/PengunjungRoutes')
+const datapengunjungEnpoind = require('./Routes/DataPengunjungRoutes')
 const session = require('express-session')
 
 const app = express()
 app.use(express.json())
 app.use(cors())
 
-const loadSessions = async (req) => {
-  const sessions = await sessionModel.findAll();
-  sessions.forEach(session => {
-    req.session[session.cookie_id] = {
-      admin_id: session.admin_id,
-      activity_code: session.activity_code,
-      activity_time: session.activity_time,
-    };
-  });
-};
+// const loadSessions = async (req) => {
+//   const sessions = await sessionModel.findAll();
+//   sessions.forEach(session => {
+//     req.session[session.cookie_id] = {
+//       admin_id: session.admin_id,
+//       activity_code: session.activity_code,
+//       activity_time: session.activity_time,
+//     };
+//   });
+// };
 
 app.use(session({
   secret: 'your_secret_key',  // Ganti dengan secret key yang aman
@@ -58,5 +59,6 @@ app.get('/putri', (req, res) => {
 
 app.use('/api/admin', adminEnpoind)
 app.use('/api/pengunjung', pengunjungEnpoind)
+app.use('/api/datapengunjung', datapengunjungEnpoind)
 
 app.listen(port, () => {console.log(`server running to port ${port}`)})

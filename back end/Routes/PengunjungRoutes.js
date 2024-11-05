@@ -19,7 +19,6 @@ router.post('/registers', async (req, res) => {
         error: "NIM, Nama Lengkap, dan Email Umrah wajib diisi"
       });
     }
-    // Cek apakah NIM adalah angka
     if (isNaN(nim) || nim <= 0) {
       return res.status(400).json({
         error: "NIM harus berupa angka yang valid"
@@ -30,7 +29,6 @@ router.post('/registers', async (req, res) => {
         error: "Jenis Kelamin harus 'laki-laki' atau 'perempuan'"
       });
     }
-    // Cek format email
     const emailPattern = /^[a-zA-Z0-9._%+-]+@student\.umrah\.ac\.id$/;
     if (!emailPattern.test(email_umrah)) {
       return res.status(400).json({
@@ -51,9 +49,5 @@ router.post('/registers', async (req, res) => {
     });
   }
 })
-
-
-
-
 
 module.exports = router

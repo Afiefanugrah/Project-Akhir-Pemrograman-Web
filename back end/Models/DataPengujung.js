@@ -1,26 +1,38 @@
-// const { Model, DataTypes  } = require('sequelize')
-// const sequelize = require('../db.config')
+const { Model, DataTypes  } = require('sequelize')
+const sequelize = require('../db.config')
 
-// class Admin extends Model {}
+class Datamasuk extends Model {}
 
-// Admin.init({
-//   id: {
-//     type: DataTypes.INTEGER,
-//     autoIncrement: true,
-//     primaryKey: true
-//   },
-//   username: {
-//     type: DataTypes.STRING,
-//     unique: true,
-//     allowNull: false
-//   },
-//   password: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   }
-// }, {
-//   sequelize,
-//   modelName: "Admin"
-// })
+Datamasuk.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  nim: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  keperluan: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  }, 
+  created_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  }
+}, {
+  sequelize,
+  modelName: "Datamasuk",
+  timestamps: false,
+})
 
-// // module.exports = Admin
+Pengunjung.belongsTo(Pengunjung, { foreignKey: 'nim', targetKey: 'nim' });
+
+module.exports = Datamasuk

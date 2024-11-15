@@ -1,14 +1,14 @@
-// NavbarLogin.js
+// NavbarLogout.js
 import React from "react";
 import { useNavigate } from 'react-router-dom';
-import "../../styles/NavbarLoginPage.css"
+import "../../../styles/NavbarLoginPage.css"
 
-const NavbarLogin = () => {
+const NavbarLogout = () => {
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogout = (e) => {
     e.preventDefault()
-    navigate('/login')
+    navigate('/')
   }
 
   return (
@@ -21,10 +21,10 @@ const NavbarLogin = () => {
             <small className="text-muted">Fakultas Teknik dan Teknologi Kemaritiman</small>
           </div>
         </div>
-        <a className="btn btn-primary" onClick={handleLogin}>Login</a>
+        <a className="btn btn-primary" onClick={handleLogout}>logout</a>
       </div>
     </nav>
   );
 };
 
-export default NavbarLogin;
+export default NavbarLogout;

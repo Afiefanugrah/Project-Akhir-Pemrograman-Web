@@ -1,33 +1,69 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";  // Ensure this import is present
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from 'sweetalert2';
 
 const LoginAdmin = () => {
   const [formData, setFormData] = useState({
-    username: "admin",
-    password: "admin",
+    username: "",
+    password: "",
   });
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { id, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [id]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted with:", formData);
-  };
+    try {
+      console.log("Data yang dikirim ke API:", formData); // Debugging log
+      // Mengirimkan data formData (username dan password) ke server dengan credentials (cookie)
+      const response = await axios.post("http://localhost:3200/api/admin/login", {
+        username: formData.username,
+        password: formData.password,
+      }, { withCredentials: true }); // Pastikan menggunakan withCredentials
 
-  const handleLoginClick = () => {
-    navigate('/dashboard'); // Ensure this calls navigate correctly
+      console.log("Login response:", response.data); // Log response
+
+      if (response.status === 200 && response.data.metadata) {
+        // Swal.fire({
+        //   icon: 'success',
+        //   title: 'Login berhasil!',
+        //   text: 'Selamat datang, Anda berhasil login.',
+        // });
+
+        setFormData({
+          username: "",
+          password: ""
+        });
+
+        // Mengarahkan ke halaman dashboard setelah login berhasil
+        navigate('/dashboard');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Login gagal',
+          text: response.data.error || "Username atau password salah",
+        });
+      }
+    } catch (error) {
+      console.error("Error during login:", error.response || error.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Login gagal',
+        text: error.response?.data?.message || error.message || "Terjadi kesalahan saat login.",
+      });
+    }
   };
 
   const handleBackClick = () => {
-    navigate(-1); // Go back to the previous page
+    navigate('/'); // Kembali ke halaman sebelumnya
   };
 
   return (
@@ -59,8 +95,8 @@ const LoginAdmin = () => {
       </div>
 
       <div className="d-flex justify-content-between">
-        <button type="button" className="btn btn-secondary" onClick={handleLoginClick}>Login</button>
-        <button type="submit" className="btn btn-primary" onClick={handleBackClick}>back</button>
+        <button type="submit" className="btn btn-primary">Login</button>
+        <button type="button" className="btn btn-secondary" onClick={handleBackClick}>Back</button>
       </div>
     </form>
   );

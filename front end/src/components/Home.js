@@ -13,7 +13,7 @@ const Home = ({ showFromPengunjung, showRegistrasiPengunjung }) => { // Menerima
         <NavbarLogin className="navbar" style={{ display: 'block' }} />
       <main className="h-100">
         <div className="container text-center my-container">
-          <div className="row align-items-center h-100 w-100 border">
+          <div className="row align-items-center h-100 w-100">
             <div className="col-12 col-md-6 my-col-6">
               <div className="my-left-content">
                 {showFromPengunjung ? (
@@ -28,7 +28,8 @@ const Home = ({ showFromPengunjung, showRegistrasiPengunjung }) => { // Menerima
             <div className="col-6 my-col-6 my-right">
               <div className="my-right-content">
                 <h3>Scan QR di bawah 👇</h3>
-                <QRCodeCanvas value="http://192.168.1.7:3000/" size={225} level="H" />
+                <QRCodeCanvas value="http://192.168.1.7:3000/" size={250} level="M" />
+                {/* <QRCodeCanvas value="http://192.168.1.7:3000/" size={225} level="H" /> */}
                 <h5>Atau ketik link berikut <br /><a href="http://192.168.1.7:3000/">http://192.168.1.7:3000/</a></h5>
               </div>
             </div>

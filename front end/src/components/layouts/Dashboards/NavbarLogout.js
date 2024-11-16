@@ -1,15 +1,26 @@
-// NavbarLogout.js
 import React from "react";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Untuk melakukan request ke backend
 import "../../../styles/NavbarLoginPage.css"
 
 const NavbarLogout = () => {
   const navigate = useNavigate();
 
-  const handleLogout = (e) => {
-    e.preventDefault()
-    navigate('/')
-  }
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      // Mengirim permintaan logout ke backend
+      const response = await axios.post('http://localhost:3200/api/admin/logout', {}, { withCredentials: true });
+
+      if (response.status === 200) {
+        // Setelah logout sukses, arahkan ke halaman login
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+      alert("Terjadi kesalahan saat logout.");
+    }
+  };
 
   return (
     <nav className="navbar bg-body-tertiary navbar-custom">
@@ -21,7 +32,7 @@ const NavbarLogout = () => {
             <small className="text-muted">Fakultas Teknik dan Teknologi Kemaritiman</small>
           </div>
         </div>
-        <a className="btn btn-primary" onClick={handleLogout}>logout</a>
+        <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
       </div>
     </nav>
   );

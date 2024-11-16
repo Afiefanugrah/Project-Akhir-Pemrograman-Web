@@ -14,48 +14,19 @@ const session = require('express-session')
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+// app.use(cors())
 
-// const loadSessions = async (req) => {
-//   const sessions = await sessionModel.findAll();
-//   sessions.forEach(session => {
-//     req.session[session.cookie_id] = {
-//       admin_id: session.admin_id,
-//       activity_code: session.activity_code,
-//       activity_time: session.activity_time,
-//     };
-//   });
-// };
-
+app.use(cors({ 
+  origin: "http://localhost:3000", 
+  credentials: true 
+}));
+app.use(express.json());
 app.use(session({
-  secret: 'your_secret_key',  // Ganti dengan secret key yang aman
-  // store: store,
+  secret: 'your-secret-key',
   resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 30 * 24 * 60 * 60 * 1000  // 30 hari
-  }
-}))
-
-app.get('/', (req, res) => {
-  res.send('GET request to homepage')
-})
-
-app.get('/dimas', (req, res) => {
-  res.send('DIMAS ANJAY MABAR')
-})
-
-app.get('/nopal', (req, res) => {
-  res.send('Pal Khun')
-})
-
-app.get('/marcel', (req, res) => {
-  res.send('Marcel Hadir')
-})
-
-app.get('/putri', (req, res) => {
-  res.send('Putri here')
-})
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 
 app.use('/api/admin', adminEnpoind)
 app.use('/api/pengunjung', pengunjungEnpoind)

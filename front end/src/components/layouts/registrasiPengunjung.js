@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios"
-
+import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import "../../styles/registrasiPengunjung.css"
+import "../../styles/registrasiPengunjung.css";
+import Swal from 'sweetalert2';
 
 const RegistrasiPengunjung = () => {
-  const apiregister = process.env.REACT_APP_API_UR
-
+  
   const [formData, setFormData] = useState({
     nim: "",
     nama_lengkap: "",
@@ -27,9 +26,13 @@ const RegistrasiPengunjung = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://192.168.1.7:3200/api/pengunjung/registers", formData);
-      console.log("Response:", response.data);
-      alert("Registrasi berhasil!");
+      const response = await axios.post("http://localhost:3200/api/pengunjung/registers", formData);
+      // Success alert
+      Swal.fire({
+        icon: 'success',
+        title: 'Registrasi berhasil!',
+        text: 'Data Anda telah berhasil disimpan.',
+      });
 
       // Clear form after submission
       setFormData({
@@ -39,10 +42,14 @@ const RegistrasiPengunjung = () => {
         email_umrah: ""
       });
 
-      navigate('/')
+      navigate('/');
     } catch (error) {
-      console.error("Error:", error.response?.data || error.message);
-      alert("Registrasi gagal: " + (error.response?.data?.error || "Terjadi kesalahan"));
+      // Error alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Registrasi gagal',
+        text: error.response?.data?.error || "Terjadi kesalahan",
+      });
     }
   };
 
@@ -51,7 +58,7 @@ const RegistrasiPengunjung = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="custom-form-container">
       <div className="mb-3">
         <label htmlFor="nim" className="form-label">NIM</label>
         <input type="text" className="form-control" id="nim" placeholder="Masukkan NIM" value={formData.nim} onChange={handleChange} />
@@ -75,8 +82,8 @@ const RegistrasiPengunjung = () => {
         <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
       </div>
       <div className="d-flex justify-content-between">
-        <button type="submit" className="btn btn-primary" onClick={handleSubmit} >Daftar</button>
-        <button type="buttonnnm" className="btn btn-primary" onClick={handlebackClick}>back</button>
+        <button type="submit" className="btn btn-primary">Daftar</button>
+        <button type="button" className="btn btn-primary" onClick={handlebackClick}>Back</button>
       </div>
     </form>
   );

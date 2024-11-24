@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
-const sessionModel = require('./Models/SessionModel')
 const port = process.env.PORT
 
 const sequelize = require('./db.config')
@@ -9,7 +8,7 @@ sequelize.sync().then(() => console.log("Database Ready!"))
 
 const adminEnpoind = require('./Routes/AdminRoutes')
 const pengunjungEnpoind = require('./Routes/PengunjungRoutes')
-const datapengunjungEnpoind = require('./Routes/DataPengunjungRoutes')
+const KunjunganEnpoind = require('./Routes/KunjunganRoutes')
 const session = require('express-session')
 
 const app = express()
@@ -30,6 +29,6 @@ app.use(session({
 
 app.use('/api/admin', adminEnpoind)
 app.use('/api/pengunjung', pengunjungEnpoind)
-app.use('/api/datapengunjung', datapengunjungEnpoind)
+app.use('/api/datapengunjung', KunjunganEnpoind)
 
 app.listen(port, () => {console.log(`server running to port ${port}`)})

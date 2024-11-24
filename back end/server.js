@@ -29,6 +29,6 @@ app.use(session({
 
 app.use('/api/admin', adminEnpoind)
 app.use('/api/pengunjung', pengunjungEnpoind)
-app.use('/api/datapengunjung', KunjunganEnpoind)
+app.use('/api/Kunjungan', KunjunganEnpoind)
 
 app.listen(port, () => {console.log(`server running to port ${port}`)})

@@ -9,7 +9,7 @@ const PrivateRoute = ({ children }) => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await axios.get("http://localhost:3200/api/admin/session", { withCredentials: true });
+        const response = await axios.get("http://194.238.16.21:3220/api/admin/session", { withCredentials: true });
         
         if (response.data.loggedIn) {
           setIsLoggedIn(true);

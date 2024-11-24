@@ -10,7 +10,7 @@ const NavbarLogout = () => {
     e.preventDefault();
     try {
       // Mengirim permintaan logout ke backend
-      const response = await axios.post('http://localhost:3200/api/admin/logout', {}, { withCredentials: true });
+      const response = await axios.post('http://194.238.16.21:3220/api/admin/logout', {}, { withCredentials: true });
 
       if (response.status === 200) {
         // Setelah logout sukses, arahkan ke halaman login

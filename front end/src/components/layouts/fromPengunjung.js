@@ -1,39 +1,122 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 import "../../styles/frompengunjungPage.css";
 
-const FromPengunjung = () => { 
-  const navigate = useNavigate(); // Initialize navigate
+const FromPengunjung = () => {
+  const [formData, setFormData] = useState({
+    nim: "",
+    keperluan: ""
+  });
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add form submission logic here if needed
+  
+    if (!formData.nim || !formData.keperluan) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Semua field harus diisi!',
+      });
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://194.238.16.21:3220/api/kunjungan/masuk", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+  
+      if (response.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Berhasil!',
+          text: 'Data berhasil dikirim!',
+        });
+        setFormData({ nim: "", keperluan: "" });
+      } else {
+        const data = await response.json();
+  
+        // Jika message berupa array, gabungkan dengan newline
+        const errorMessage = Array.isArray(data.message)
+          ? data.message.join('\n') // Menggabungkan array dengan newline
+          : data.message;
+  
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal!',
+          text: errorMessage || 'Gagal mengirim data!',
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Terjadi kesalahan saat menghubungi server.',
+      });
+    }
   };
+  
 
-  const handleKrimClick = () => {
-    alert('Form berhasil dikirim!');
-  };
-
-  const handleRegisClick = () => {
-    navigate('/register');
+  const handleRegisterClick = () => {
+    navigate("/register");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="custom-peng-container">
-      <div className="mb-3">
-        <label htmlFor="nim" className="form-label">NIM</label>
-        <input type="text" className="form-control" id="nim" placeholder="Masukkan NIM" />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="nama_kegiatan" className="form-label">Keperluan</label>
-        <input type="text" className="form-control" id="nama_kegiatan" placeholder="Masukkan Kegiatan" />
-      </div>
-      
-      <div className="d-flex justify-content-between">
-        <button type="button" className="btn btn-primary" onClick={handleKrimClick}>Kirim</button>
-        <button type="button" className="btn btn-secondary" onClick={handleRegisClick}>Register</button>
-      </div>
-    </form>
+    <div className="custom-peng-container">
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="nim" className="form-label">NIM</label>
+          <input
+            type="text"
+            className="form-control"
+            id="nim"
+            placeholder="Masukkan NIM"
+            value={formData.nim}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="keperluan" className="form-label">Keperluan</label>
+          <input
+            type="text"
+            className="form-control"
+            id="keperluan"
+            placeholder="Masukkan Keperluan"
+            value={formData.keperluan}
+            onChange={handleInputChange}
+          />
+          <div id="textHelp" className="form-text">
+            Silakan masukkan keperluan Anda di atas
+          </div>
+        </div>
+
+        <div className="d-flex justify-content-between">
+          <button type="submit" className="btn btn-primary">Kirim</button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={handleRegisterClick}
+          >
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

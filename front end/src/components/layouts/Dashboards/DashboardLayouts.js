@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     // Fetch data jumlah anggota dari API
-    fetch("http://localhost:3200/api/pengunjung/")
+    fetch("http://194.238.16.21:3220/api/pengunjung/")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Gagal mengambil data anggota");

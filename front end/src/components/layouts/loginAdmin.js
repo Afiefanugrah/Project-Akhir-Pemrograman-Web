@@ -24,7 +24,7 @@ const LoginAdmin = () => {
     try {
       console.log("Data yang dikirim ke API:", formData); // Debugging log
       // Mengirimkan data formData (username dan password) ke server dengan credentials (cookie)
-      const response = await axios.post("http://localhost:3200/api/admin/login", {
+      const response = await axios.post("http://194.238.16.21:3220/api/admin/login", {
         username: formData.username,
         password: formData.password,
       }, { withCredentials: true }); // Pastikan menggunakan withCredentials

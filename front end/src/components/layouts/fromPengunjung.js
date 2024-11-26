@@ -32,7 +32,7 @@ const FromPengunjung = () => {
     }
   
     try {
-      const response = await fetch("http://194.238.16.21:3220/api/kunjungan/masuk", {
+      const response = await fetch("http://localhost:3200/api/kunjungan/masuk", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

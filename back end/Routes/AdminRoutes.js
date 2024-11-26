@@ -31,7 +31,7 @@ router.post('/register', async (req, res) => {
     })
   } catch (error) {
     res.status(500).json({
-      error: "An error occurred while creating the admin",
+      error: "username tidak ada / password salah",
       details: error.message
     });
   }

@@ -9,7 +9,7 @@ const DataAnggota = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://194.238.16.21:3220/api/pengunjung/')
+    fetch('http://localhost:3200/api/pengunjung/')
       .then(response => {
         if (!response.ok) {
           throw new Error('Gagal mengambil data');

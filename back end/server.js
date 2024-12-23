@@ -16,16 +16,19 @@ app.use(express.json())
 // app.use(cors())
 
 app.use(cors({ 
-  origin: "http://localhost:3000", 
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+  ], 
   credentials: true 
 }));
-app.use(express.json());
 app.use(session({
   secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }
 }));
+
 
 app.use('/api/admin', adminEnpoind)
 app.use('/api/pengunjung', pengunjungEnpoind)

@@ -28,9 +28,9 @@ const Home = ({ showFromPengunjung, showRegistrasiPengunjung }) => { // Menerima
             <div className="col-6 my-col-6 my-right">
               <div className="my-right-content">
                 <h3>Scan QR di bawah 👇</h3>
-                <QRCodeCanvas value="http://192.168.1.7:3000/" size={250} level="M" />
+                <QRCodeCanvas value="http://localhost:3200/" size={250} level="M" />
                 {/* <QRCodeCanvas value="http://192.168.1.7:3000/" size={225} level="H" /> */}
-                <h5>Atau ketik link berikut <br /><a href="http://192.168.1.7:3000/">http://192.168.1.7:3000/</a></h5>
+                <h5>Atau ketik link berikut <br /><a href="http://localhost:3200/">http://localhost:3200/</a></h5>
               </div>
             </div>
           </div>

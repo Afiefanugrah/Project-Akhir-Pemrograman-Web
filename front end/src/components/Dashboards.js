@@ -50,6 +50,7 @@ const Dashboards = () => {
             <Route path="/" element={<Dashboard />} />
             <Route path="/datakunjungan" element={<Datakunjungan />} />
             <Route path="/dataanggota" element={<DataAnggota />} />
+            {/* <Route path="/dashboard" element={<Dataadmin />} /> */}
           </Routes>
         </div>
       </main>

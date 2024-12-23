@@ -26,7 +26,7 @@ const RegistrasiPengunjung = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://194.238.16.21:3220/api/pengunjung/registers", formData);
+      const response = await axios.post("http://localhost:3200/api/pengunjung/registers", formData);
       // Success alert
       Swal.fire({
         icon: 'success',

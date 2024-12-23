@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-import '../../../styles/Dashboards/DataAnggota.css';
+import React, { useState, useEffect } from "react"
+import '../../../styles/Dashboards/DataAnggota.css'
+import Swal from "sweetalert2";
+
 
 const DataAnggota = () => {
   const [dataAnggota, setDataAnggota] = useState([]);
@@ -28,6 +30,37 @@ const DataAnggota = () => {
       });
   }, []);
 
+  const handleDelete = async (id) => {
+    const confirmResult = await Swal.fire({
+      title: "Apakah Anda yakin?",
+      text: "Data yang dihapus tidak dapat dikembalikan!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    });
+
+    if (confirmResult.isConfirmed) {
+      try {
+        const response = await fetch(`http://localhost:3200/api/pengunjung/${id}`, {
+          method: 'DELETE',
+        });
+        if (!response.ok) {
+          throw new Error('Gagal menghapus data');
+        }
+
+        setDataAnggota(dataAnggota.filter(anggota => anggota.id !== id));
+        Swal.fire("Dihapus!", "Data berhasil dihapus.", "success");
+      } catch (err) {
+        console.error('Error saat menghapus data:', err);
+        Swal.fire("Error", "Gagal menghapus data.", "error");
+      }
+    }
+  };
+
+  
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = dataAnggota.slice(indexOfFirstRow, indexOfLastRow);
@@ -80,7 +113,7 @@ const DataAnggota = () => {
                 <td>{anggota.email_umrah}</td>
                 <td>
                   <button className="btn btn-warning btn-sm">Edit</button>
-                  <button className="btn btn-danger btn-sm ml-2">Hapus</button>
+                  <button className="btn btn-danger btn-sm ml-2" onClick={() => handleDelete(anggota.id)}>Hapus</button>
                 </td>
               </tr>
             ))}

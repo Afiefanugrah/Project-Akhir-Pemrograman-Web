@@ -5,3 +5,4 @@
 * Putri Suci Renita (2201020017)
 * Dimas Adrian Arifin (2201020118)
 * Muhammad Noval (2201020014)
+* Grachiella Dian Malemukur (2201020045)
